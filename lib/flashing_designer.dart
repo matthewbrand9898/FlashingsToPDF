@@ -157,6 +157,38 @@ class FlashingDesigner extends StatelessWidget {
                     }
 
                     for (int i = 0;
+                        i < designerModel.nearLengthPositions.length;
+                        i++) {
+                      designerModel.editNearLengthPositionOffset(
+                          i,
+                          lengthOffset(
+                              designerModel.nearPoints,
+                              designerModel.nearLengthPositions,
+                              designerModel.interactiveZoomFactor,
+                              i + 1,
+                              i,
+                              verticalScaler(
+                                  designerModel.nearPoints,
+                                  designerModel.nearLengthPositions,
+                                  i + 1,
+                                  i)));
+                    }
+                    for (int i = 0;
+                        i < designerModel.farLengthPositions.length;
+                        i++) {
+                      designerModel.editFarLengthPositionOffset(
+                          i,
+                          lengthOffset(
+                              designerModel.farPoints,
+                              designerModel.farLengthPositions,
+                              designerModel.interactiveZoomFactor,
+                              i + 1,
+                              i,
+                              verticalScaler(designerModel.farPoints,
+                                  designerModel.farLengthPositions, i + 1, i)));
+                    }
+
+                    for (int i = 0;
                         i < designerModel.anglePositions.length;
                         i++) {
                       designerModel.editAnglePositionOffset(
@@ -164,6 +196,32 @@ class FlashingDesigner extends StatelessWidget {
                           angleOffset(
                               designerModel.points,
                               designerModel.anglePositions,
+                              designerModel.interactiveZoomFactor,
+                              i + 1,
+                              i));
+                    }
+
+                    for (int i = 0;
+                        i < designerModel.nearAnglePositions.length;
+                        i++) {
+                      designerModel.editNearAnglePositionOffset(
+                          i,
+                          angleOffset(
+                              designerModel.nearPoints,
+                              designerModel.nearAnglePositions,
+                              designerModel.interactiveZoomFactor,
+                              i + 1,
+                              i));
+                    }
+
+                    for (int i = 0;
+                        i < designerModel.farAnglePositions.length;
+                        i++) {
+                      designerModel.editFarAnglePositionOffset(
+                          i,
+                          angleOffset(
+                              designerModel.farPoints,
+                              designerModel.farAnglePositions,
                               designerModel.interactiveZoomFactor,
                               i + 1,
                               i));
@@ -632,6 +690,13 @@ class FlashingDesigner extends StatelessWidget {
                 bottom: 102,
                 left: 200,
                 child: TextButton(
+                  style: ButtonStyle(
+                      backgroundColor: Provider.of<DesignerModel>(context,
+                                      listen: false)
+                                  .taperedState ==
+                              1
+                          ? MaterialStatePropertyAll(Colors.deepPurple.shade100)
+                          : const MaterialStatePropertyAll(Colors.transparent)),
                   child: Text(
                     'FAR',
                     style: TextStyle(
@@ -655,6 +720,13 @@ class FlashingDesigner extends StatelessWidget {
                 bottom: 102,
                 left: 100,
                 child: TextButton(
+                  style: ButtonStyle(
+                      backgroundColor: Provider.of<DesignerModel>(context,
+                                      listen: false)
+                                  .taperedState ==
+                              0
+                          ? MaterialStatePropertyAll(Colors.deepPurple.shade100)
+                          : const MaterialStatePropertyAll(Colors.transparent)),
                   child: Text(
                     'NEAR',
                     style: TextStyle(
