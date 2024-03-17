@@ -655,7 +655,7 @@ class FlashingDesigner extends StatelessWidget {
                 top: 50,
                 child: IconButton(
                   color: Colors.deepPurple.shade500,
-                  icon: Icon(Icons.swap_horiz_rounded),
+                  icon: const Icon(Icons.swap_horiz_rounded),
                   onPressed: () {
                     Provider.of<DesignerModel>(context, listen: false)
                         .swapColourSide();
@@ -669,7 +669,7 @@ class FlashingDesigner extends StatelessWidget {
                 left: 50,
                 child: IconButton(
                   color: Colors.deepPurple.shade500,
-                  icon: Icon(Icons.rectangle),
+                  icon: const Icon(Icons.rectangle),
                   onPressed: () {
                     if (Provider.of<DesignerModel>(context, listen: false)
                             .tapered ==

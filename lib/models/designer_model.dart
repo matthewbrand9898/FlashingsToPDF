@@ -558,6 +558,7 @@ class DesignerModel extends ChangeNotifier {
 
   void editBottomBarIndex(int val) {
     _bottomBarIndex = val;
+    disableTaper();
     notifyListeners();
   }
 

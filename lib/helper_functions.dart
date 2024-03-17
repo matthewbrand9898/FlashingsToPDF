@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-
 Offset calculateMidpoint(Offset pointA, Offset pointB) {
   return Offset(
     (pointA.dx + pointB.dx) / 2.0,
@@ -86,10 +84,10 @@ Offset initialLengthPos(List<Offset> points, int pointIndex1, pointIndex2) {
           3;
 }
 
-Offset cf1StartPoint(List<Offset> points, int cf1_State, double cf1_Length,
+Offset cf1StartPoint(List<Offset> points, int cf1State, double cf1Length,
     double interactiveZoomFactor) {
   Offset cf_1NormalVector = calculatePerpendicularVector(points[0], points[1]);
-  Offset cf1_Start = cf1_State == 1
+  Offset cf1Start = cf1State == 1
       ? points[0] +
           (Offset(
               cf_1NormalVector.dx *
@@ -107,13 +105,13 @@ Offset cf1StartPoint(List<Offset> points, int cf1_State, double cf1_Length,
                   clampDouble(
                       8 * (1 / interactiveZoomFactor), 4, double.infinity)));
 
-  return cf1_Start;
+  return cf1Start;
 }
 
-Offset cf1EndPoint(List<Offset> points, int cf1_State, double cf1_Length,
+Offset cf1EndPoint(List<Offset> points, int cf1State, double cf1Length,
     double interactiveZoomFactor) {
   Offset cf_1NormalVector = calculatePerpendicularVector(points[0], points[1]);
-  Offset cf1_Start = cf1_State == 1
+  Offset cf1Start = cf1State == 1
       ? points[0] +
           (Offset(
               cf_1NormalVector.dx *
@@ -131,18 +129,18 @@ Offset cf1EndPoint(List<Offset> points, int cf1_State, double cf1_Length,
                   clampDouble(
                       8 * (1 / interactiveZoomFactor), 4, double.infinity)));
 
-  return cf1_Start +
+  return cf1Start +
       Offset(
           calculateNormalizedDirectionVector(points[0], points[1]).dx *
-              (cf1_Length * 2.6666666666666666666666666666667),
+              (cf1Length * 2.6666666666666666666666666666667),
           calculateNormalizedDirectionVector(points[0], points[1]).dy *
-              (cf1_Length * 2.6666666666666666666666666666667));
+              (cf1Length * 2.6666666666666666666666666666667));
 }
 
-Offset cf1Midpoint(List<Offset> points, int cf1_State, double cf1_Length,
+Offset cf1Midpoint(List<Offset> points, int cf1State, double cf1Length,
     double interactiveZoomFactor) {
   Offset cf_1NormalVector = calculatePerpendicularVector(points[0], points[1]);
-  Offset cf1_Start = cf1_State == 1
+  Offset cf1Start = cf1State == 1
       ? points[0] +
           (Offset(
               cf_1NormalVector.dx *
@@ -161,19 +159,19 @@ Offset cf1Midpoint(List<Offset> points, int cf1_State, double cf1_Length,
                       8 * (1 / interactiveZoomFactor), 4, double.infinity)));
 
   return calculateMidpoint(
-      cf1_Start,
-      cf1_Start +
+      cf1Start,
+      cf1Start +
           Offset(
               calculateNormalizedDirectionVector(points[0], points[1]).dx *
-                  (cf1_Length * 2.6666666666666666666666666666667),
+                  (cf1Length * 2.6666666666666666666666666666667),
               calculateNormalizedDirectionVector(points[0], points[1]).dy *
-                  (cf1_Length * 2.6666666666666666666666666666667)));
+                  (cf1Length * 2.6666666666666666666666666666667)));
 }
 
 Offset cf1Offset(List<Offset> points, Offset cf_1Position,
-    double interactiveZoomFactor, int cf1_State, double cf1_Length) {
+    double interactiveZoomFactor, int cf1State, double cf1Length) {
   Offset cf_1NormalVector = calculatePerpendicularVector(points[0], points[1]);
-  Offset cf_1Scaler = cf1_State == 1
+  Offset cf_1Scaler = cf1State == 1
       ? Offset(
           cf_1NormalVector.dx *
               clampDouble(8 * (1 / interactiveZoomFactor), 4, double.infinity),
@@ -185,29 +183,29 @@ Offset cf1Offset(List<Offset> points, Offset cf_1Position,
           cf_1NormalVector.dy *
               clampDouble(8 * (1 / interactiveZoomFactor), 4, double.infinity));
 
-  Offset cf1_Midpoint =
-      cf1Midpoint(points, cf1_State, cf1_Length, interactiveZoomFactor);
+  Offset cf1midpoint =
+      cf1Midpoint(points, cf1State, cf1Length, interactiveZoomFactor);
 
   return Offset(
       (25 *
               ((1 / -interactiveZoomFactor) *
                   calculateNormalizedDirectionVector(
-                          cf1_Midpoint, cf_1Position + cf_1Scaler)
+                          cf1midpoint, cf_1Position + cf_1Scaler)
                       .dx)) -
           cf_1Scaler.dx,
       (25 *
               ((1 / -interactiveZoomFactor) *
                   calculateNormalizedDirectionVector(
-                          cf1_Midpoint, cf_1Position + cf_1Scaler)
+                          cf1midpoint, cf_1Position + cf_1Scaler)
                       .dy)) -
           cf_1Scaler.dy);
 }
 
-Offset cf2StartPoint(List<Offset> points, int cf2_State, double cf2_Length,
+Offset cf2StartPoint(List<Offset> points, int cf2State, double cf2Length,
     double interactiveZoomFactor) {
   Offset cf_2NormalVector = calculatePerpendicularVector(
       points[points.length - 1], points[points.length - 2]);
-  Offset cf2_Start = cf2_State == 1
+  Offset cf2Start = cf2State == 1
       ? points[points.length - 1] +
           (Offset(
               cf_2NormalVector.dx *
@@ -225,14 +223,14 @@ Offset cf2StartPoint(List<Offset> points, int cf2_State, double cf2_Length,
                   clampDouble(
                       8 * (1 / interactiveZoomFactor), 4, double.infinity)));
 
-  return cf2_Start;
+  return cf2Start;
 }
 
-Offset cf2EndPoint(List<Offset> points, int cf2_State, double cf2_Length,
+Offset cf2EndPoint(List<Offset> points, int cf2State, double cf2Length,
     double interactiveZoomFactor) {
   Offset cf_2NormalVector = calculatePerpendicularVector(
       points[points.length - 1], points[points.length - 2]);
-  Offset cf2_Start = cf2_State == 1
+  Offset cf2Start = cf2State == 1
       ? points[points.length - 1] +
           (Offset(
               cf_2NormalVector.dx *
@@ -250,23 +248,23 @@ Offset cf2EndPoint(List<Offset> points, int cf2_State, double cf2_Length,
                   clampDouble(
                       8 * (1 / interactiveZoomFactor), 4, double.infinity)));
 
-  return cf2_Start +
+  return cf2Start +
       Offset(
           calculateNormalizedDirectionVector(
                       points[points.length - 1], points[points.length - 2])
                   .dx *
-              (cf2_Length * 2.6666666666666666666666666666667),
+              (cf2Length * 2.6666666666666666666666666666667),
           calculateNormalizedDirectionVector(
                       points[points.length - 1], points[points.length - 2])
                   .dy *
-              (cf2_Length * 2.6666666666666666666666666666667));
+              (cf2Length * 2.6666666666666666666666666666667));
 }
 
-Offset cf2Midpoint(List<Offset> points, int cf2_State, double cf2_Length,
+Offset cf2Midpoint(List<Offset> points, int cf2State, double cf2Length,
     double interactiveZoomFactor) {
   Offset cf_2NormalVector = calculatePerpendicularVector(
       points[points.length - 1], points[points.length - 2]);
-  Offset cf2_Start = cf2_State == 1
+  Offset cf2Start = cf2State == 1
       ? points[points.length - 1] +
           (Offset(
               cf_2NormalVector.dx *
@@ -285,27 +283,27 @@ Offset cf2Midpoint(List<Offset> points, int cf2_State, double cf2_Length,
                       8 * (1 / interactiveZoomFactor), 4, double.infinity)));
 
   return calculateMidpoint(
-      cf2_Start,
-      cf2_Start +
+      cf2Start,
+      cf2Start +
           Offset(
               calculateNormalizedDirectionVector(
                           points[points.length - 1], points[points.length - 2])
                       .dx *
-                  (cf2_Length * 2.6666666666666666666666666666667),
+                  (cf2Length * 2.6666666666666666666666666666667),
               calculateNormalizedDirectionVector(
                           points[points.length - 1], points[points.length - 2])
                       .dy *
-                  (cf2_Length * 2.6666666666666666666666666666667)));
+                  (cf2Length * 2.6666666666666666666666666666667)));
 }
 
 Offset cf2Scaler(
   List<Offset> points,
   double interactiveZoomFactor,
-  int cf2_State,
+  int cf2State,
 ) {
   Offset cf_2NormalVector = calculatePerpendicularVector(
       points[points.length - 1], points[points.length - 2]);
-  Offset cf_2Scaler = cf2_State == 1
+  Offset cf_2Scaler = cf2State == 1
       ? Offset(
           cf_2NormalVector.dx *
               clampDouble(8 * (1 / interactiveZoomFactor), 4, double.infinity),
@@ -321,10 +319,10 @@ Offset cf2Scaler(
 }
 
 Offset cf2Offset(List<Offset> points, Offset cf_2Position,
-    double interactiveZoomFactor, int cf2_State, double cf2_Length) {
+    double interactiveZoomFactor, int cf2State, double cf2Length) {
   Offset cf_2NormalVector = calculatePerpendicularVector(
       points[points.length - 1], points[points.length - 2]);
-  Offset cf_2Scaler = cf2_State == 1
+  Offset cf_2Scaler = cf2State == 1
       ? Offset(
           cf_2NormalVector.dx *
               clampDouble(8 * (1 / interactiveZoomFactor), 4, double.infinity),
@@ -336,20 +334,20 @@ Offset cf2Offset(List<Offset> points, Offset cf_2Position,
           cf_2NormalVector.dy *
               clampDouble(8 * (1 / interactiveZoomFactor), 4, double.infinity));
 
-  Offset cf2_Midpoint =
-      cf2Midpoint(points, cf2_State, cf2_Length, interactiveZoomFactor);
+  Offset cf2midpoint =
+      cf2Midpoint(points, cf2State, cf2Length, interactiveZoomFactor);
 
   return Offset(
       (25 *
               ((1 / -interactiveZoomFactor) *
                   calculateNormalizedDirectionVector(
-                          cf2_Midpoint, cf_2Position + cf_2Scaler)
+                          cf2midpoint, cf_2Position + cf_2Scaler)
                       .dx)) -
           cf_2Scaler.dx,
       (25 *
               ((1 / -interactiveZoomFactor) *
                   calculateNormalizedDirectionVector(
-                          cf2_Midpoint, cf_2Position + cf_2Scaler)
+                          cf2midpoint, cf_2Position + cf_2Scaler)
                       .dy)) -
           cf_2Scaler.dy);
 }
