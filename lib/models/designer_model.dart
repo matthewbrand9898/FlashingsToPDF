@@ -161,6 +161,7 @@ class DesignerModel extends ChangeNotifier {
       loadFarTaper();
     }
     updateColourPosition();
+    UpdateGirth();
     notifyListeners();
   }
 
@@ -260,6 +261,20 @@ class DesignerModel extends ChangeNotifier {
     }
   }
 
+  void removeNearPoint() {
+    if (_nearPoints.isNotEmpty) {
+      _nearPoints.removeLast();
+      UpdateGirth();
+    }
+  }
+
+  void removeFarPoint() {
+    if (_farPoints.isNotEmpty) {
+      _farPoints.removeLast();
+      UpdateGirth();
+    }
+  }
+
 // length position
   void addLengthPosition(Offset offset) {
     _lengthPositions.add(offset);
@@ -274,6 +289,18 @@ class DesignerModel extends ChangeNotifier {
   void removeLengthPosition() {
     if (_lengthPositions.isNotEmpty) {
       _lengthPositions.removeLast();
+    }
+  }
+
+  void removeNearLengthPosition() {
+    if (_nearLengthPositions.isNotEmpty) {
+      _nearLengthPositions.removeLast();
+    }
+  }
+
+  void removeFarLengthPosition() {
+    if (_farLengthPositions.isNotEmpty) {
+      _farLengthPositions.removeLast();
     }
   }
 
@@ -307,9 +334,35 @@ class DesignerModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void editNearLengthPositionOffset(int index, Offset newValue) {
+    if (_nearLengthPositions_Offsets.length > index) {
+      _nearLengthPositions_Offsets[index] = newValue;
+    }
+    notifyListeners();
+  }
+
+  void editFarLengthPositionOffset(int index, Offset newValue) {
+    if (_farLengthPositions_Offsets.length > index) {
+      _farLengthPositions_Offsets[index] = newValue;
+    }
+    notifyListeners();
+  }
+
   void removeLengthPositionOffset() {
     if (_lengthPositions_Offsets.isNotEmpty) {
       _lengthPositions_Offsets.removeLast();
+    }
+  }
+
+  void removeNearLengthPositionOffset() {
+    if (_nearLengthPositions_Offsets.isNotEmpty) {
+      _nearLengthPositions_Offsets.removeLast();
+    }
+  }
+
+  void removeFarLengthPositionOffset() {
+    if (_farLengthPositions_Offsets.isNotEmpty) {
+      _farLengthPositions_Offsets.removeLast();
     }
   }
 
@@ -327,6 +380,18 @@ class DesignerModel extends ChangeNotifier {
   void removeAnglePosition() {
     if (_anglePositions.isNotEmpty) {
       _anglePositions.removeLast();
+    }
+  }
+
+  void removeNearAnglePosition() {
+    if (_nearAnglePositions.isNotEmpty) {
+      _nearAnglePositions.removeLast();
+    }
+  }
+
+  void removeFarAnglePosition() {
+    if (_farAnglePositions.isNotEmpty) {
+      _farAnglePositions.removeLast();
     }
   }
 
@@ -360,9 +425,35 @@ class DesignerModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void editNearAnglePositionOffset(int index, Offset newValue) {
+    if (_nearAnglePositions_Offsets.length > index) {
+      _nearAnglePositions_Offsets[index] = newValue;
+    }
+    notifyListeners();
+  }
+
+  void editFarAnglePositionOffset(int index, Offset newValue) {
+    if (_farAnglePositions_Offsets.length > index) {
+      _farAnglePositions_Offsets[index] = newValue;
+    }
+    notifyListeners();
+  }
+
   void removeAnglePositionOffset() {
     if (_anglePositions_Offsets.isNotEmpty) {
       _anglePositions_Offsets.removeLast();
+    }
+  }
+
+  void removeNearAnglePositionOffset() {
+    if (_nearAnglePositions_Offsets.isNotEmpty) {
+      _nearAnglePositions_Offsets.removeLast();
+    }
+  }
+
+  void removeFarAnglePositionOffset() {
+    if (_farAnglePositions_Offsets.isNotEmpty) {
+      _farAnglePositions_Offsets.removeLast();
     }
   }
 
@@ -570,13 +661,27 @@ class DesignerModel extends ChangeNotifier {
       editCf_2length(0);
 
       removePoint();
+      removeNearPoint();
+      removeFarPoint();
       updateColourPosition();
 
       if (_lengthPositions.isNotEmpty) {
         removeLengthPosition();
       }
+      if (_nearLengthPositions.isNotEmpty) {
+        removeNearLengthPosition();
+      }
+      if (_farLengthPositions.isNotEmpty) {
+        removeFarLengthPosition();
+      }
       if (_anglePositions.isNotEmpty) {
         removeAnglePosition();
+      }
+      if (_nearAnglePositions.isNotEmpty) {
+        removeNearAnglePosition();
+      }
+      if (_farAnglePositions.isNotEmpty) {
+        removeFarAnglePosition();
       }
       if (_angleScales.isNotEmpty) {
         removeAngleScale();
@@ -587,9 +692,24 @@ class DesignerModel extends ChangeNotifier {
       if (_lengthPositions_Offsets.isNotEmpty) {
         removeLengthPositionOffset();
       }
+      if (_nearLengthPositions_Offsets.isNotEmpty) {
+        removeNearLengthPositionOffset();
+      }
+      if (_farLengthPositions_Offsets.isNotEmpty) {
+        removeFarLengthPositionOffset();
+      }
       if (_anglePositions_Offsets.isNotEmpty) {
         removeAnglePositionOffset();
       }
+      if (_nearAnglePositions_Offsets.isNotEmpty) {
+        removeNearAnglePositionOffset();
+      }
+      if (_farAnglePositions_Offsets.isNotEmpty) {
+        removeFarAnglePositionOffset();
+      }
+    }
+    if (nearPoints.length <= 1 || farPoints.length <= 1) {
+      disableTaper();
     }
   }
 }
