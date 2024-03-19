@@ -41,6 +41,8 @@ class DesignerModel extends ChangeNotifier {
   double _cf_2Length = 0;
   Offset _cf_1Position = const Offset(0, 0);
   Offset _cf_2Position = const Offset(0, 0);
+  Offset _cf_2PositionNear = const Offset(0, 0);
+  Offset _cf_2PositionFar = const Offset(0, 0);
   Offset _colourPosition = const Offset(0, 0);
   Offset _colourMidpoint = const Offset(0, 0);
   double _colourRotation = 0;
@@ -110,6 +112,8 @@ class DesignerModel extends ChangeNotifier {
   double get cf_2Length => _cf_2Length;
   Offset get cf_1Position => _cf_1Position;
   Offset get cf_2Position => _cf_2Position;
+  Offset get cf_2PositionNear => _cf_2PositionNear;
+  Offset get cf_2PositionFar => _cf_2PositionFar;
   Offset get colourPosition => _colourPosition;
   Offset get colourMidpoint => _colourMidpoint;
 
@@ -177,6 +181,7 @@ class DesignerModel extends ChangeNotifier {
     _nearLengthPositions_Offsets = [..._lengthPositions_Offsets];
     _nearAnglePositions = [..._anglePositions];
     _nearAnglePositions_Offsets = [..._anglePositions_Offsets];
+    _cf_2PositionNear = Offset(_cf_2Position.dx, _cf_2Position.dy);
   }
 
   void loadNearTaper() {
@@ -185,6 +190,7 @@ class DesignerModel extends ChangeNotifier {
     _lengthPositions_Offsets = [..._nearLengthPositions_Offsets];
     _anglePositions = [..._nearAnglePositions];
     _anglePositions_Offsets = [..._nearAnglePositions_Offsets];
+    _cf_2Position = Offset(_cf_2PositionNear.dx, _cf_2PositionNear.dy);
   }
 
   void saveFarTaper() {
@@ -193,6 +199,7 @@ class DesignerModel extends ChangeNotifier {
     _farLengthPositions_Offsets = [..._lengthPositions_Offsets];
     _farAnglePositions = [..._anglePositions];
     _farAnglePositions_Offsets = [..._anglePositions_Offsets];
+    _cf_2PositionFar = Offset(_cf_2Position.dx, _cf_2Position.dy);
   }
 
   void loadFarTaper() {
@@ -201,6 +208,7 @@ class DesignerModel extends ChangeNotifier {
     _lengthPositions_Offsets = [..._farLengthPositions_Offsets];
     _anglePositions = [..._farAnglePositions];
     _anglePositions_Offsets = [..._farAnglePositions_Offsets];
+    _cf_2Position = Offset(_cf_2PositionFar.dx, _cf_2PositionFar.dy);
   }
 
   //colourside

@@ -10,6 +10,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'cf2_widget.dart';
@@ -610,137 +611,145 @@ class FlashingDesigner extends StatelessWidget {
                   .bottomBarIndex ==
               1)
             Positioned(
-                right: 0,
-                bottom: 0,
+                top: 0,
+                left: 0,
                 child: Container(
-                  width: 100,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        const BorderRadius.only(topLeft: Radius.circular(15)),
-                    color: Colors.deepPurple.shade500,
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      if (Provider.of<DesignerModel>(context, listen: true)
+                              .bottomBarIndex ==
+                          1)
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 0),
+                          child: Center(
+                            child: AutoSizeText(
+                              "GIRTH ${Provider.of<DesignerModel>(context, listen: true).girth}",
+                              style: TextStyle(
+                                  fontFamily: "OpenSans",
+                                  color: Colors.deepPurple.shade500),
+                            ),
+                          ),
+                        ),
+                      if (Provider.of<DesignerModel>(context, listen: true)
+                              .bottomBarIndex ==
+                          1)
+                        IconButton(
+                          color: Colors.deepPurple.shade500,
+                          icon: Icon(
+                              Provider.of<DesignerModel>(context, listen: false)
+                                      .Hide90_45Angles
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
+                          onPressed: () {
+                            Provider.of<DesignerModel>(context, listen: false)
+                                .editHide90_45Angles(
+                                    !Provider.of<DesignerModel>(context,
+                                            listen: false)
+                                        .Hide90_45Angles);
+                          },
+                        ),
+                      if (Provider.of<DesignerModel>(context, listen: true)
+                              .bottomBarIndex ==
+                          1)
+                        IconButton(
+                          color: Colors.deepPurple.shade500,
+                          icon: const Icon(Icons.swap_horiz_rounded),
+                          onPressed: () {
+                            Provider.of<DesignerModel>(context, listen: false)
+                                .swapColourSide();
+                          },
+                        ),
+                      if (Provider.of<DesignerModel>(context, listen: true)
+                              .bottomBarIndex ==
+                          1)
+                        IconButton(
+                          icon: SvgPicture.asset('images/taperIcon.svg',
+                              width: 25,
+                              height: 25,
+                              semanticsLabel: 'Taper Icon'),
+                          onPressed: () {
+                            if (Provider.of<DesignerModel>(context,
+                                        listen: false)
+                                    .tapered ==
+                                false) {
+                              Provider.of<DesignerModel>(context, listen: false)
+                                  .enableTaper();
+                            } else {
+                              Provider.of<DesignerModel>(context, listen: false)
+                                  .disableTaper();
+                            }
+                          },
+                        ),
+                      if (Provider.of<DesignerModel>(context, listen: true)
+                                  .bottomBarIndex ==
+                              1 &&
+                          Provider.of<DesignerModel>(context, listen: true)
+                              .tapered)
+                        TextButton(
+                          style: ButtonStyle(
+                              backgroundColor: Provider.of<DesignerModel>(
+                                              context,
+                                              listen: false)
+                                          .taperedState ==
+                                      0
+                                  ? MaterialStatePropertyAll(
+                                      Colors.deepPurple.shade100)
+                                  : const MaterialStatePropertyAll(
+                                      Colors.transparent)),
+                          child: Text(
+                            'NEAR',
+                            style: TextStyle(
+                                color: Colors.deepPurple.shade500,
+                                fontFamily: 'OpenSans'),
+                          ),
+                          onPressed: () {
+                            if (Provider.of<DesignerModel>(context,
+                                        listen: false)
+                                    .taperedState !=
+                                0) {
+                              Provider.of<DesignerModel>(context, listen: false)
+                                  .swapTaper(0);
+                            }
+                          },
+                        ),
+                      if (Provider.of<DesignerModel>(context, listen: true)
+                                  .bottomBarIndex ==
+                              1 &&
+                          Provider.of<DesignerModel>(context, listen: true)
+                              .tapered)
+                        TextButton(
+                          style: ButtonStyle(
+                              backgroundColor: Provider.of<DesignerModel>(
+                                              context,
+                                              listen: false)
+                                          .taperedState ==
+                                      1
+                                  ? MaterialStatePropertyAll(
+                                      Colors.deepPurple.shade100)
+                                  : const MaterialStatePropertyAll(
+                                      Colors.transparent)),
+                          child: Text(
+                            'FAR',
+                            style: TextStyle(
+                                color: Colors.deepPurple.shade500,
+                                fontFamily: 'OpenSans'),
+                          ),
+                          onPressed: () {
+                            if (Provider.of<DesignerModel>(context,
+                                        listen: false)
+                                    .taperedState !=
+                                1) {
+                              Provider.of<DesignerModel>(context, listen: false)
+                                  .swapTaper(1);
+                            }
+                          },
+                        ),
+                    ],
                   ),
-                  child: Center(
-                    child: AutoSizeText(
-                      "GIRTH ${Provider.of<DesignerModel>(context, listen: true).girth}",
-                      style: const TextStyle(
-                          fontFamily: "OpenSans", color: Colors.white),
-                    ),
-                  ),
-                )),
-          if (Provider.of<DesignerModel>(context, listen: true)
-                  .bottomBarIndex ==
-              1)
-            Positioned(
-                left: 10,
-                top: 10,
-                child: IconButton(
-                  color: Colors.deepPurple.shade500,
-                  icon: Icon(Provider.of<DesignerModel>(context, listen: false)
-                          .Hide90_45Angles
-                      ? Icons.visibility_off
-                      : Icons.visibility),
-                  onPressed: () {
-                    Provider.of<DesignerModel>(context, listen: false)
-                        .editHide90_45Angles(
-                            !Provider.of<DesignerModel>(context, listen: false)
-                                .Hide90_45Angles);
-                  },
-                )),
-          if (Provider.of<DesignerModel>(context, listen: true)
-                  .bottomBarIndex ==
-              1)
-            Positioned(
-                left: 10,
-                top: 50,
-                child: IconButton(
-                  color: Colors.deepPurple.shade500,
-                  icon: const Icon(Icons.swap_horiz_rounded),
-                  onPressed: () {
-                    Provider.of<DesignerModel>(context, listen: false)
-                        .swapColourSide();
-                  },
-                )),
-          if (Provider.of<DesignerModel>(context, listen: true)
-                  .bottomBarIndex ==
-              1)
-            Positioned(
-                bottom: 100,
-                left: 50,
-                child: IconButton(
-                  color: Colors.deepPurple.shade500,
-                  icon: const Icon(Icons.rectangle),
-                  onPressed: () {
-                    if (Provider.of<DesignerModel>(context, listen: false)
-                            .tapered ==
-                        false) {
-                      Provider.of<DesignerModel>(context, listen: false)
-                          .enableTaper();
-                    } else {
-                      Provider.of<DesignerModel>(context, listen: false)
-                          .disableTaper();
-                    }
-                  },
-                )),
-          if (Provider.of<DesignerModel>(context, listen: true)
-                      .bottomBarIndex ==
-                  1 &&
-              Provider.of<DesignerModel>(context, listen: true).tapered)
-            Positioned(
-                bottom: 102,
-                left: 200,
-                child: TextButton(
-                  style: ButtonStyle(
-                      backgroundColor: Provider.of<DesignerModel>(context,
-                                      listen: false)
-                                  .taperedState ==
-                              1
-                          ? MaterialStatePropertyAll(Colors.deepPurple.shade100)
-                          : const MaterialStatePropertyAll(Colors.transparent)),
-                  child: Text(
-                    'FAR',
-                    style: TextStyle(
-                        color: Colors.deepPurple.shade500,
-                        fontFamily: 'OpenSans'),
-                  ),
-                  onPressed: () {
-                    if (Provider.of<DesignerModel>(context, listen: false)
-                            .taperedState !=
-                        1) {
-                      Provider.of<DesignerModel>(context, listen: false)
-                          .swapTaper(1);
-                    }
-                  },
-                )),
-          if (Provider.of<DesignerModel>(context, listen: true)
-                      .bottomBarIndex ==
-                  1 &&
-              Provider.of<DesignerModel>(context, listen: true).tapered)
-            Positioned(
-                bottom: 102,
-                left: 100,
-                child: TextButton(
-                  style: ButtonStyle(
-                      backgroundColor: Provider.of<DesignerModel>(context,
-                                      listen: false)
-                                  .taperedState ==
-                              0
-                          ? MaterialStatePropertyAll(Colors.deepPurple.shade100)
-                          : const MaterialStatePropertyAll(Colors.transparent)),
-                  child: Text(
-                    'NEAR',
-                    style: TextStyle(
-                        color: Colors.deepPurple.shade500,
-                        fontFamily: 'OpenSans'),
-                  ),
-                  onPressed: () {
-                    if (Provider.of<DesignerModel>(context, listen: false)
-                            .taperedState !=
-                        0) {
-                      Provider.of<DesignerModel>(context, listen: false)
-                          .swapTaper(0);
-                    }
-                  },
                 )),
         ]),
       );

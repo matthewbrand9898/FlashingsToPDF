@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +40,7 @@ class EditAngle extends StatelessWidget {
               onChanged: (text) {
                 if (double.tryParse(text) != null &&
                     double.tryParse(text) != 0) {
+                  designerModel.disableTaper();
                   var sign = 0;
                   var initialPoint =
                       designerModel.points[designerModel.SelectedPointindex];
