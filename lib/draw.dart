@@ -23,7 +23,11 @@ class Draw extends CustomPainter {
     required this.cF2_position,
     required this.cF2_length,
     required this.Hide_90_45Angles,
+    required this.TaperedState,
+    required this.Tapered,
   });
+  final int TaperedState;
+  final bool Tapered;
   final Rect boundingBox;
   final List<Offset> points;
   final List<Offset> lengthPositions;
@@ -40,6 +44,29 @@ class Draw extends CustomPainter {
   final int bottomNavbarIndex;
   final double scaleFactor;
   final bool Hide_90_45Angles;
+
+  void drawDashedLine({
+    required Canvas canvas,
+    required Offset p1,
+    required Offset p2,
+    required Iterable<double> pattern,
+    required Paint paint,
+  }) {
+    assert(pattern.length.isEven);
+    final distance = (p2 - p1).distance;
+    final normalizedPattern = pattern.map((width) => width / distance).toList();
+    final points = <Offset>[];
+    double t = 0;
+    int i = 0;
+    while (t < 1) {
+      points.add(Offset.lerp(p1, p2, t)!);
+      t += normalizedPattern[i++]; // dashWidth
+      points.add(Offset.lerp(p1, p2, t.clamp(0, 1))!);
+      t += normalizedPattern[i++]; // dashSpace
+      i %= normalizedPattern.length;
+    }
+    canvas.drawPoints(PointMode.lines, points, paint);
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -82,6 +109,12 @@ class Draw extends CustomPainter {
     linesPaint.color = Colors.grey.shade600;
     linesPaint.strokeWidth = clampDouble(4.0 / scaleFactor, 2.5, 100);
     linesPaint.strokeCap = StrokeCap.round;
+
+    Paint taperPaint = Paint();
+    taperPaint.style = PaintingStyle.stroke;
+    taperPaint.color = Colors.grey.shade600;
+    taperPaint.strokeWidth = clampDouble(2.0 / scaleFactor, 1, 100);
+    taperPaint.strokeCap = StrokeCap.round;
 
     Paint boxPaint = Paint();
     boxPaint.color = Colors.grey.shade100;
@@ -458,8 +491,28 @@ class Draw extends CustomPainter {
       }
     }
 
-    for (int i = 0; i < points.length - 1; i++) {
-      canvas.drawLine(points[i], points[i + 1], linesPaint);
+    for (int i = 0; i < points.length; i++) {
+      if (i < points.length - 1) {
+        canvas.drawLine(points[i], points[i + 1], linesPaint);
+      }
+
+      if (bottomNavbarIndex == 1 && Tapered) {
+        if (TaperedState == 1) {
+          drawDashedLine(
+              canvas: canvas,
+              p1: points[i],
+              p2: Offset(points[i].dx - 190, points[i].dy + 100),
+              pattern: [20, 10],
+              paint: taperPaint);
+        } else {
+          drawDashedLine(
+              canvas: canvas,
+              p1: points[i],
+              p2: Offset(points[i].dx + 190, points[i].dy - 100),
+              pattern: [20, 10],
+              paint: taperPaint);
+        }
+      }
     }
     for (int i = 0; i < points.length; i++) {
       canvas.drawCircle(

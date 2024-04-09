@@ -263,6 +263,8 @@ class FlashingDesigner extends StatelessWidget {
                           cF2_length: designerModel.cf_2Length,
                           cF2_position: designerModel.cf_2Position,
                           Hide_90_45Angles: designerModel.Hide90_45Angles,
+                          TaperedState: designerModel.taperedState,
+                          Tapered: designerModel.tapered,
                         ),
                         child: GridPaper(
                           color: Colors.grey,
@@ -543,8 +545,7 @@ class FlashingDesigner extends StatelessWidget {
                               min: 0,
                               max: 360,
                               onChange: (double value) {
-                                designerModel.editFlashingRotationAngle(
-                                    (value / 5).round() * 5.0);
+                                designerModel.editFlashingRotationAngle(value);
                                 // callback providing a value while its being changed (with a pan gesture)
                               },
                               onChangeStart: (double startValue) {
@@ -691,6 +692,9 @@ class FlashingDesigner extends StatelessWidget {
                               .tapered)
                         TextButton(
                           style: ButtonStyle(
+                              shape: const MaterialStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.zero)),
                               backgroundColor: Provider.of<DesignerModel>(
                                               context,
                                               listen: false)
@@ -723,6 +727,9 @@ class FlashingDesigner extends StatelessWidget {
                               .tapered)
                         TextButton(
                           style: ButtonStyle(
+                              shape: const MaterialStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.zero)),
                               backgroundColor: Provider.of<DesignerModel>(
                                               context,
                                               listen: false)
