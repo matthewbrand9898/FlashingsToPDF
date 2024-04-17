@@ -14,7 +14,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'cf2_widget.dart';
-import 'render_flashing_icon.dart';
+import 'flashing_details.dart';
 import 'draw.dart';
 import 'helper_functions.dart';
 import 'models/designer_model.dart';
@@ -33,7 +33,7 @@ class FlashingDesigner extends StatelessWidget {
           backgroundColor: Colors.deepPurple.shade500,
           title: const Text(
             "DESIGNER",
-            style: TextStyle(fontFamily: "OpenSans", color: Colors.white),
+            style: TextStyle(fontFamily: "Kanit", color: Colors.white),
           ),
           centerTitle: true,
           actions: [
@@ -44,7 +44,7 @@ class FlashingDesigner extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => RenderFlashing(
+                      builder: (context) => FlashingDetails(
                             points: Provider.of<DesignerModel>(context,
                                     listen: false)
                                 .points,
@@ -62,10 +62,11 @@ class FlashingDesigner extends StatelessWidget {
                 );
               },
               child: const Text(
-                "Next",
-                style: TextStyle(fontFamily: "OpenSans", color: Colors.white),
+                "NEXT",
+                style: TextStyle(fontFamily: "Kanit", color: Colors.white),
               ),
-            )
+            ),
+            const Padding(padding: EdgeInsets.only(right: 15)),
           ],
         ),
         bottomNavigationBar: ConvexAppBar(
@@ -76,27 +77,27 @@ class FlashingDesigner extends StatelessWidget {
             TabItem(
               icon: Icons.draw,
               title: 'DRAW',
-              fontFamily: "OpenSans",
+              fontFamily: "Kanit",
             ),
             TabItem(
               icon: Icons.edit_note,
               title: 'EDIT',
-              fontFamily: "OpenSans",
+              fontFamily: "Kanit",
             ),
             TabItem(
               icon: Icons.construction_rounded,
               title: 'CF',
-              fontFamily: "OpenSans",
+              fontFamily: "Kanit",
             ),
             TabItem(
               icon: Icons.rotate_left,
               title: 'ROTATE',
-              fontFamily: "OpenSans",
+              fontFamily: "Kanit",
             ),
             TabItem(
               icon: Icons.undo,
               title: 'UNDO',
-              fontFamily: "OpenSans",
+              fontFamily: "Kanit",
             ),
           ],
           onTap: (int i) {
@@ -630,7 +631,7 @@ class FlashingDesigner extends StatelessWidget {
                             child: AutoSizeText(
                               "GIRTH ${Provider.of<DesignerModel>(context, listen: true).girth}",
                               style: TextStyle(
-                                  fontFamily: "OpenSans",
+                                  fontFamily: "Kanit",
                                   color: Colors.deepPurple.shade500),
                             ),
                           ),
@@ -708,7 +709,7 @@ class FlashingDesigner extends StatelessWidget {
                             'NEAR',
                             style: TextStyle(
                                 color: Colors.deepPurple.shade500,
-                                fontFamily: 'OpenSans'),
+                                fontFamily: 'Kanit'),
                           ),
                           onPressed: () {
                             if (Provider.of<DesignerModel>(context,
@@ -743,7 +744,7 @@ class FlashingDesigner extends StatelessWidget {
                             'FAR',
                             style: TextStyle(
                                 color: Colors.deepPurple.shade500,
-                                fontFamily: 'OpenSans'),
+                                fontFamily: 'Kanit'),
                           ),
                           onPressed: () {
                             if (Provider.of<DesignerModel>(context,

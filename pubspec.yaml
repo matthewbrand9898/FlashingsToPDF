@@ -82,5 +82,8 @@ flutter:
     - family: OpenSans
       fonts:
         - asset: fonts/OpenSans-Bold.ttf
+    - family: Kanit
+      fonts:
+        - asset: fonts/Kanit-SemiBold.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
